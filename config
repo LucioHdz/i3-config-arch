@@ -233,4 +233,7 @@ for_window [ class="^.*" ] border pixel 3
 
 exec feh --big-fill /home/luciohdz/images/wallpaper9.jpg
 exec wal -i /home/luciohdz/images/wallpaper9.jpg
-exec picom -b 
+exec picom -b
+
+
+#Modificacion por Origaska.com 

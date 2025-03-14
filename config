@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 12
+font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -45,10 +45,13 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # brillo
 
 bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
-bindsym XF86MonBrightnessUp exec brightnessctlset +2% 
+bindsym XF86MonBrightnessUp exec brightnessctl set +2% 
 
 # captura de pantalla
 bindsym Print exec gnome-screenshot -i
+
+#bloquear pantalla
+bindsym $mod+l exec betterlockscreen -l
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -59,16 +62,16 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec tilix 
-#i3-senible-terminal
+bindsym $mod+Return exec tilix
+#bindsym $mod+Return exec alacritty
+#bindsym $mod+Return exec i3-sensible-terminal
+
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
-set $bg "#444477"
-bindsym $mod+F2 exec dmenu_run -i -fn "Cantarell-14" -nf '#ffb52a' -sb '#ffb52a' -sf '#222'
+bindsym $mod+F2 exec --no-startup-id rofi -show drun
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -78,7 +81,7 @@ bindsym $mod+F2 exec dmenu_run -i -fn "Cantarell-14" -nf '#ffb52a' -sb '#ffb52a'
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
-bindsym $mod+l focus up
+# bindsym $mod+l focus up
 bindsym $mod+ntilde focus right
 
 # alternatively, you can use the cursor keys:
@@ -100,7 +103,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+h split h 
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -198,42 +201,24 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	position top
-	height 20        
-	status_command i3blocks
-	colors{
-		background #001D1D
-		statusline #DAFFD5
-		separator #ff5733
-		focused_workspace #444444 #444444 #ffb52a
-		active_workspace #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace #2f343a #900000 #ffffff 
-	}
-}
+#bar {
+#        status_command polybar
+#}
 
 
-#foco de la ventana colores naranja
-client.focused #E8E8E8 #E8E8E8 #E8E8E8 #FFFFFF
+#colores del foco
+client.focused #FF4CB1 #FF4CB1 #FF4CB1 #4CFFD5
 
 
-
-#espaciado de las aplicaciones de 10pp
-
+#espaciado de ventanas
 gaps outer 4
-gaps inner 4
-#smart_gaps on
+gaps inner 8
 
 
-#quitar el borde de las aplicaciones
+#quitar el borde
+for_window [class="^.*"] border pixel 4
 
-for_window [ class="^.*" ] border pixel 3
-
-
-exec feh --big-fill /home/luciohdz/images/wallpaper9.jpg
-exec wal -i /home/luciohdz/images/wallpaper9.jpg
-exec picom -b
-
-
-#Modificacion por origaska.com 
+#exec feh --big-fill /home/origaska/Imágenes/wallpaper1.jpg
+exec --no-startup-id wal -i /home/origaska/Imágenes/wallpaper1.jpg
+exec_always picom -b
+exec --no-startup-id bash /home/origaska/.config/polybar/launch.sh --colorblocks
